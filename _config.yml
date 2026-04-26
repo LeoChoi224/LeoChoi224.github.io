@@ -115,7 +115,7 @@ analytics:
 # Site Author
 author:
   name             : "LeoNote"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/IMG_1532.jpeg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "레오노트의 블로그입니다."
   location         : "South Korea"
   email            : # "leochoi224@gmail.com"
