@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 232.5
   },
   "right": {
     "id": "9cf934a9fc8f5547",
@@ -185,11 +185,22 @@
   },
   "active": "0c32a0abbcac5af9",
   "lastOpenFiles": [
+    "_site/assets/images/404_NotFound_image_small.png",
+    "assets/images/404_NotFound_image_small.png",
+    "_site/assets/images/404_NotFound_image_big.png",
+    "assets/images/404_NotFound_image_big.png",
+    "_site/assets/images/404_NotFound_image 복사본.png",
+    "assets/images/404_NotFound_image 복사본.png",
+    "_site/assets/images/404_NotFound_image.png",
+    "assets/images/404_NotFound_image.png",
+    "_site/404.html",
+    "_site/_pages/404.md",
+    "_site/_pages",
+    "_pages/404.md",
     "images/Leonoteo_Profile_ver2.png",
     "Leonote_ver1 2.png",
     "images",
     "Leonote_ver1 1.png",
-    "_posts/2026-04-26-first.md",
-    "images/Leonote_ver1.png"
+    "_posts/2026-04-26-first.md"
   ]
 }
