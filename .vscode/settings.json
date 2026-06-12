@@ -1,0 +1,10 @@
+{
+  // 기본 설정 (원하는 경우)
+  "editor.tabSize": 4,
+
+  // JSX (JavaScript React) 설정: 스페이스 2칸
+  "[javascriptreact]": {
+    "editor.tabSize": 2
+  }
+  
+}
