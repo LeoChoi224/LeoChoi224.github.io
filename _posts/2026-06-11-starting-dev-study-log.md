@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "개발 공부 기록을 시작하며"
+date: 2026-06-11 20:00:00 +0900
 categories: coding
 tag: [study-log, github-pages, blog]
 toc: true

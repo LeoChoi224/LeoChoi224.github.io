@@ -1,8 +1,9 @@
 ---
 layout: single
 title: "React 기초 정리 1 - JSX와 Hooks"
+date: 2026-06-11 23:30:00 +0900
 categories: [coding, React]
-tag: [study-log, React]
+tag: [study-log, React, JSX, Component, Hooks, useState, useEffect, useMemo, useRef, styled-components]
 toc: true
 author_profile: false
 sidebar:

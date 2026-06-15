@@ -1,6 +1,7 @@
 ---
 layout: single
 title: "React 기초 정리 2 - props, useCallback, Router, CRUD"
+date: 2026-06-12 23:30:00 +0900
 categories: [coding, React]
 tag: [study-log, React, props, useCallback, router, bootstrap, crud]
 toc: true
