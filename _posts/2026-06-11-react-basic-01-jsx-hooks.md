@@ -1,7 +1,6 @@
 ---
 layout: single
 title: "React 기초 정리 1 - JSX와 Hooks"
-date: 2026-06-11 23:30:00 +0900
 categories: [coding, React]
 tag: [study-log, React, JSX, Component, Hooks, useState, useEffect, useMemo, useRef, styled-components]
 toc: true
@@ -86,15 +85,82 @@ return (
   </>
 );
 ```
+
 ## Component 분리
-특정 부분을 변경해도 '전체가' 렌더링 된다. 다시 모든 것을 다 렌더링 하지 않으려면  '쪼개어서 그려야 한다'
+React에서는 특정 상태가 변경될 때 컴포넌트 **전체가 다시 렌더링되는** 문제가 발생할 수 있습니다. 불필요한 전체 렌더링을 방지하고 애플리케이션의 성능을 방어하기 위해서는 기능과 역할을 기준으로 컴포넌트를 **쪼개어 독립적으로 그려야 한다.**
 
 
 
 
 ## Hooks
-Hooks는 React의 상태관리등 다양한 기능을 활용할수 있도록 제공되는 함수(기는)이다.
+Hooks는 React의 상태관리등 다양한 기능을 활용할수 있도록 제공되는 함수(기능)이다.
 
 오늘 배운 Hook은 `useState`, `useEffect`, `useMemo`, `useRef`이다.
 
-Hooks는 보통 이름이 `use`로 시작한다.
+Hooks는 보통 이름이 `use`로 시작하고, Hooks를 사용하면 함수형 컴포넌트 안에서도 상태 관리, 렌더링 이후 작업 처리, 값 저장, 성능 최적화 등을 할 수 있다.
+
+## useState()
+`useState`는 컴포넌트에서 상태(State)를 관리할 때 사용하는 Hook이다.
+
+```jsx
+import { useState } from 'react';
+
+function Counter() {
+  let number = 1;
+
+  const add = () => {
+    number++;
+  }
+
+  return (
+    <div>
+      <p>숫자: {number}</p>
+      <button onClick={(add)}>
+        증가
+      </button>
+    </div>
+  );
+}
+```
+위 코드를 보면 number에 1을 더하는 add() 함수를 만들고, [증가] 버튼을 클릭했을 때 이 함수가 호출되도록 구현했다.
+
+실제로 버튼을 클릭할 때마다 add() 함수 자체는 정상적으로 실행되지만, 화면에 표시되는 number 값은 바뀌지 않는다.
+그 이유는 **React가 '상태(State)' 값이 변경될 때만 컴포넌트를 리렌더링(다시 그리기)**하기 때문이다.
+
+일반 변수는 값이 바뀌어도 React가 이를 감지하지 못하므로, useState를 활용해 상태값으로 설정해 주어야 한다.
+```jsx
+import { useState } from 'react';
+
+function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <div>
+      <p>숫자: {number}</p>
+      <button onClick={() => setNumber(number + 1)}>
+        증가
+      </button>
+    </div>
+  );
+}
+```
+`useState(0)`에서 0은 초기값이고, `number`은 현재 상태값, `setNumber`은 상태를 변경하는 함수이다.
+
+React에서는 상태값을 직접 바꾸지 않고, 반드시 setter 함수를 사용해서 변경해야 한다.
+Setter 함수를 통해 상태가 변경되어야만 React가 이를 감지하고 화면을 다시 렌더링하기 때문이다.
+
+결론적으로, 화면에 동적으로 반영되어야 하는 변수들은 반드시 useState로 관리해야 한다는 점이 중요하다.
+
+## useEffect()
+`useEffect`는 컴포넌트가 렌더링된 후 특정 작업을 실행할 때 사용하는 Hook이다.
+```jsx
+import { useEffect } from 'react';
+
+function App() {
+  useEffect(() => {
+    console.log('컴포넌트 렌더링 완료');
+  }, []);
+
+  return <h1>Hello React</h1>;
+}
+```

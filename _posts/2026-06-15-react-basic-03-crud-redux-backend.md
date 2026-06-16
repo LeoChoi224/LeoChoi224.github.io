@@ -1,8 +1,8 @@
 ---
 layout: single
 title: "React 기초 정리 3 - CRUD, Redux와 Backend 연동"
-categories: [coding, React, Python]
-tag: [study-log, React, value, defaultValue, key, Flux, Redux, ContextAPI, FastAPI, axios]
+categories: [coding, React, FastAPI]
+tag: [study-log, React, FastAPI, value, defaultValue, key, Flux, Redux, ContextAPI, axios]
 toc: true
 author_profile: false
 sidebar:
