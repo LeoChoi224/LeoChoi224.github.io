@@ -170,7 +170,134 @@ console.log(id); // "10"
 
 ## react-bootstrap
 
-<!-- 이어서 작성 예정 -->
+`react-bootstrap`은 Bootstrap 컴포넌트를 React 방식으로 사용할 수 있게 해주는 라이브러리이다.
+오늘은 `Navbar`, `Container`, `Nav`를 사용해서 상단 메뉴를 만들어봤다.
 
+```jsx
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
+<Navbar bg="primary" data-bs-theme="dark">
+  <Container>
+    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+    <Nav className="me-auto">
+      <Link className="nav-link" to="/">Home</Link>
+      <Link className="nav-link" to="/login/80">/login/80</Link>
+    </Nav>
+  </Container>
+</Navbar>
+```
 
+`react-bootstrap`을 사용하면 Bootstrap의 스타일을 React 컴포넌드 형태로 사용할 수 있다.
+
+그리고 `main.jsx`에서 Bootstrap CSS를 import 해야 스타일이 적용된다.
+
+```jsx
+import "bootstrap/dist/css/bootstrap.min.css";
+```
+
+## CRUD
+
+마지막으로 간단한 CRUD 구조를 배웠다.
+
+CRUD는 데이터를 다루는 기본 기능을 의미한다.
+
+```
+Create : 생성
+Read   : 조회
+Update : 수정
+Delete : 삭제
+```
+
+오늘 예제에서는 게시글 목록을 `useState`로 관리했다.
+
+```jsx
+const [posts, setPosts] = useState([
+  { id: 1, title: "제목1", content: "내용1" },
+  { id: 2, title: "제목2", content: "내용2" },
+  { id: 3, title: "제목3", content: "내용3" },
+]);
+```
+
+입력 폼의 데이터도 상태로 관리했다.
+
+```jsx
+const [post, setPost] = useState({
+  id: "",
+  title: "",
+  content: "",
+});
+```
+
+input 값이 변경될 때는 `name` 속성을 이용해서 하나의 함수로 처리했다.
+
+```jsx
+const handleForm = (e) => {
+  setPost({
+    ...post,
+    [e.target.name]: e.target.value,
+  });
+};
+```
+
+`[e.target.name]`을 사용하면 input의 name 값에 따라 `id`, `title`, `content` 중 필요한 값만 변경할 수 있다.
+
+글쓰기 버튼을 누르면 기존 게시글 배열에 새 게시글을 추가한다.
+
+```jsx
+const handleWrite = () => {
+  setPosts([
+    ...posts,
+    {
+      id: post.id,
+      title: post.title,
+      content: post.content,
+    },
+  ]);
+};
+```
+
+배열 상태를 변경할 때는 기존 배열을 직접 수정하지 않고, spread 문법으로 새로운 배열을 만들어서 상태를 변경한다.
+
+```jsx
+setPosts([...posts, newPost]);
+```
+
+게시글 목록은 `map()`으로 출력했다.
+
+```jsx
+{posts.map((post) => (
+  <div key={post.id}>
+    번호: {post.id} 제목: {post.title} 내용: {post.content}
+  </div>
+))}
+```
+
+오늘 코드에서는 글쓰기와 목록 출력 구조를 중심으로 CRUD의 기본 흐름을 연습했다. 삭제와 수정 기능은 앞으로 `filter`, `map` 등을 사용해서 더 완성할 수 있을 것 같다.
+
+## 오늘 배운 내용 정리
+
+오늘은 React에서 컴포넌트 간 데이터 전달, 함수 최적화, 페이지 이동, Bootstrap UI, CRUD 구조를 배웠다.
+
+```
+props
+부모 컴포넌트에서 자식 컴포넌트로 데이터나 함수를 전달한다.
+
+useCallback
+함수 자체를 메모이제이션해서 불필요한 함수 재생성을 줄인다.
+
+react-router-dom
+URL 경로에 따라 다른 컴포넌트를 보여준다.
+
+react-bootstrap
+Bootstrap UI를 React 컴포넌트 형태로 사용할 수 있다.
+
+CRUD
+데이터의 생성, 조회, 수정, 삭제 흐름을 React 상태로 관리한다.
+```
+
+오늘 내용부터는 단순히 문법을 배우는 것보다 실제 화면과 기능을 구성하는 느낌이 강했다.
+
+특히 `props`를 통해 부모와 자식 컴포넌트가 데이터를 주고받는 방식, `router`를 통해 페이지를 나누는 방식, 그리고 `useState`로 게시글 목록을 관리하는 CRUD 흐름이 중요하게 느껴졌다.
+
+아직 CRUD 기능을 완전히 구현한 것은 아니지만, React에서 데이터를 상태로 관리하고 화면에 출력하는 기본 흐름을 이해하는 데 도움이 되었다.
