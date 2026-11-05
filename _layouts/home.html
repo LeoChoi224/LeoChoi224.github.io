@@ -1,21 +1,80 @@
 ---
-layout: archive
+layout: default
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
+{%- if paginator -%}{%- assign posts = paginator.posts -%}{%- else -%}{%- assign posts = site.posts -%}{%- endif -%}
+{%- assign first_page = true -%}
+{%- if paginator and paginator.page > 1 -%}{%- assign first_page = false -%}{%- endif -%}
 
-{{ content }}
-
-<h3 class="archive__subtitle">{{ site.data.ui-text[locale].recent_posts | default: "Recent Posts" }}</h3>
-
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
+{% if first_page %}
+<section class="hero" aria-label="소개">
+  <div class="wrap">
+    <div class="crt" role="img" aria-label="터미널 화면에 HELLO WORLD! LEO'S DEV NOTE가 타이핑됩니다">
+      <div class="crt__text" aria-hidden="true">
+        <p id="ln-line1">HELLO WORLD!</p>
+        <p><span id="ln-line2">LEO'S DEV NOTE</span> <span class="vee" id="ln-vee">✌️</span> <i>_</i></p>
+      </div>
+    </div>
+    <div class="hero__copy">
+      <h1>공부한 걸 코드와 함께 기록합니다</h1>
+      <p>Python부터 LLM, AI Agent까지. 수업에서 배운 개념과 실습, 막혔던 지점을 정리하는 개발 공부 로그입니다.</p>
+    </div>
+  </div>
+</section>
 {% endif %}
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html locale=locale entries=posts type=entries_layout %}
-</div>
+<div class="wrap home">
+  <section class="home__main" aria-labelledby="postsTitle">
+    <div class="section-head">
+      <h2 id="postsTitle">{% if first_page %}최근 글{% else %}글 목록 · {{ paginator.page }}페이지{% endif %}</h2>
+      <span class="count">총 {{ site.posts.size }}개</span>
+    </div>
 
-{% include paginator.html locale=locale %}
+    <div class="cards">
+      {% for post in posts %}{% include ln/post-card.html post=post %}{% endfor %}
+    </div>
+
+    {% if paginator.total_pages > 1 %}
+    <nav class="pager" aria-label="페이지 이동">
+      {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path | relative_url }}">← 이전</a>
+      {% else %}<span class="is-off">← 이전</span>{% endif %}
+      <span class="pager__now">{{ paginator.page }} / {{ paginator.total_pages }}</span>
+      {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path | relative_url }}">다음 →</a>
+      {% else %}<span class="is-off">다음 →</span>{% endif %}
+    </nav>
+    {% endif %}
+  </section>
+
+  <aside class="home__side" aria-label="블로그 정보">
+    <div class="profile">
+      <img src="{{ site.author.avatar | relative_url }}" alt="" width="56" height="56">
+      <div>
+        <p class="profile__name">최홍묵 <span>Leo</span></p>
+        <p class="profile__bio">AI 개발자를 목표로 공부하고 있어요.</p>
+      </div>
+    </div>
+    <ul class="profile__links">
+      {%- for link in site.author.links -%}
+        <li><a href="{{ link.url }}"{% unless link.url contains 'mailto:' %} target="_blank" rel="noopener"{% endunless %}>{{ link.label }}</a></li>
+      {%- endfor -%}
+    </ul>
+
+    <h3 class="side-title">카테고리</h3>
+    {%- assign cats = site.categories | sort -%}
+    <ul class="side-list">
+      {%- for c in cats -%}{%- unless c[0] == 'coding' -%}
+        <li><a href="{{ '/categories/' | relative_url }}#{{ c[0] | slugify }}">{{ c[0] }} <span>{{ c[1].size }}</span></a></li>
+      {%- endunless -%}{%- endfor -%}
+    </ul>
+
+    <h3 class="side-title">태그</h3>
+    {%- assign tags = site.tags | sort -%}
+    <ul class="chips">
+      {%- for t in tags limit: 14 -%}{%- unless t[0] == 'study-log' -%}
+        <li><a class="chip" href="{{ '/tags/' | relative_url }}#{{ t[0] | slugify }}">#{{ t[0] }}</a></li>
+      {%- endunless -%}{%- endfor -%}
+    </ul>
+    <a class="side-more" href="{{ '/tags/' | relative_url }}">태그 {{ site.tags.size }}개 모두 보기 →</a>
+  </aside>
+</div>

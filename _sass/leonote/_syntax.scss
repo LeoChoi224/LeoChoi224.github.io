@@ -1,0 +1,26 @@
+@charset "utf-8";
+/* ==========================================================================
+   코드 하이라이트 (Rouge)
+   코드 블록은 항상 어두운 바탕이라 한 벌만 둔다. 채도를 낮춘 색.
+   ========================================================================== */
+
+.highlight {
+  .c, .c1, .cm, .cs, .ch, .cd, .cp, .cpf { color: #7c7c7c; font-style: italic; }   // 주석
+  .k, .kc, .kd, .kn, .kp, .kr, .kv, .ow { color: #c2b0d4; }                        // 키워드
+  .kt { color: #a8c4c2; }                                                          // 타입
+  .s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .sx, .sr, .ss, .dl { color: #b9c7a6; } // 문자열
+  .m, .mb, .mf, .mh, .mi, .il, .mo, .mx { color: #d6b98a; }                        // 숫자
+  .nf, .fm, .nx { color: #a9bcd6; }                                                // 함수
+  .nc, .nn, .ne { color: #e0cf9a; }                                                // 클래스·모듈
+  .nb, .bp, .vc, .vg, .vi, .vm { color: #a8c4c2; }                                 // 내장
+  .nd, .nl { color: #d6b98a; }                                                     // 데코레이터
+  .nt { color: #d99a8e; }                                                          // 태그
+  .na { color: #a9bcd6; }                                                          // 속성
+  .no { color: #d6b98a; }                                                          // 상수
+  .o { color: #cfcfcf; }
+  .p, .n, .nv, .w { color: inherit; }
+  .gd { color: #d99a8e; }
+  .gi { color: #b9c7a6; }
+  .gh, .gu { color: #a9bcd6; font-weight: 600; }
+  .err { color: inherit; background: none; }
+}

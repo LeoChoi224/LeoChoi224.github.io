@@ -1,0 +1,20 @@
+{%- assign p = include.post -%}
+{%- assign topic = p.categories[1] | default: p.categories[0] -%}
+{%- assign summary = p.description | default: p.content | strip_html | normalize_whitespace | truncate: 150 -%}
+<article class="card">
+  <a class="card__link" href="{{ p.url | relative_url }}">
+    <div class="card__meta">
+      {% if topic %}<span class="chip chip--topic">{{ topic }}</span>{% endif %}
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y.%m.%d' }}</time>
+    </div>
+    <h2 class="card__title">{{ p.title }}</h2>
+    <p class="card__summary">{{ summary }}</p>
+    {%- assign shown = p.tags | where_exp: 't', 't != "study-log"' -%}
+    {% if shown.size > 0 %}
+    <ul class="card__tags" aria-label="태그">
+      {%- for t in shown limit: 4 -%}<li>#{{ t }}</li>{%- endfor -%}
+      {%- if shown.size > 4 -%}<li class="more">+{{ shown.size | minus: 4 }}</li>{%- endif -%}
+    </ul>
+    {% endif %}
+  </a>
+</article>

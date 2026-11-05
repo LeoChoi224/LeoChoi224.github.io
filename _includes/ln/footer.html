@@ -1,0 +1,15 @@
+<footer class="foot">
+  <div class="foot__inner">
+    <div>
+      <p class="foot__name">LeoNote</p>
+      <p class="foot__desc">{{ site.subtitle }}</p>
+    </div>
+    <ul class="foot__links">
+      {%- for link in site.author.links -%}
+        <li><a href="{{ link.url }}"{% unless link.url contains 'mailto:' %} target="_blank" rel="noopener"{% endunless %}>{{ link.label }}</a></li>
+      {%- endfor -%}
+      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+    </ul>
+  </div>
+  <p class="foot__copy">© {{ site.time | date: '%Y' }} LeoNote · Built with Jekyll</p>
+</footer>

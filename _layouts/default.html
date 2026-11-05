@@ -1,37 +1,39 @@
 ---
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
-
+{%- assign locale = page.locale | default: site.locale -%}
 <!doctype html>
-{% include copyright.html %}
-<html lang="{{ locale | replace: '_', '-' | default: 'en' }}" class="no-js" dir="{{ page.direction | default: layout.direction | default: site.direction | default: 'ltr' }}">
+<html lang="ko">
   <head>
-    {% include head.html locale=locale %}
-    {% include head/custom.html %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include seo.html locale=locale %}
+    <link href="{{ '/feed.xml' | relative_url }}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+    <script>
+      /* 화면이 그려지기 전에 테마를 정해서 깜빡임을 막는다 */
+      (function () {
+        var saved = null;
+        try { saved = localStorage.getItem('ln-theme'); } catch (e) {}
+        var dark = saved ? saved === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      })();
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Pixelify+Sans:wght@500;700&display=swap">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% include analytics.html %}
   </head>
 
-  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
-    {% include_cached skip-links.html locale=locale %}
-    {% include_cached masthead.html locale=locale %}
+  <body class="layout-{{ page.layout | default: layout.layout }}">
+    <a class="skip" href="#main">본문으로 건너뛰기</a>
+    {% include ln/header.html %}
 
-    <div class="initial-content">
+    <main id="main">
       {{ content }}
-      {% include after-content.html %}
-    </div>
+    </main>
 
-    {% if site.search == true %}
-      <div class="search-content">
-        {% include_cached search/search_form.html locale=locale %}
-      </div>
-    {% endif %}
-
-    <div id="footer" class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include_cached footer.html locale=locale %}
-      </footer>
-    </div>
-
-    {% include scripts.html locale=locale %}
+    {% include ln/footer.html %}
+    <script src="{{ '/assets/js/leonote.js' | relative_url }}" defer></script>
   </body>
 </html>

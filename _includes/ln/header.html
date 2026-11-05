@@ -1,0 +1,28 @@
+{%- assign path = page.url -%}
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} 홈">
+      <span class="nav__mark" aria-hidden="true">&gt;_</span>
+      <span>LeoNote</span>
+    </a>
+
+    <nav class="nav__links" aria-label="주요 메뉴">
+      <a href="{{ '/' | relative_url }}"{% if path == '/' or path contains '/page' %} aria-current="page"{% endif %}>글</a>
+      <a href="{{ '/categories/' | relative_url }}"{% if path == '/categories/' %} aria-current="page"{% endif %}>카테고리</a>
+      <a href="{{ '/tags/' | relative_url }}"{% if path == '/tags/' %} aria-current="page"{% endif %}>태그</a>
+    </nav>
+
+    <div class="nav__tools">
+      <a class="nav__search" href="{{ '/search/' | relative_url }}" aria-label="검색">
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="nav__search-text">검색</span>
+        <kbd>/</kbd>
+      </a>
+      <button class="icon-btn" type="button" id="themeBtn" aria-label="다크 모드 전환">
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>

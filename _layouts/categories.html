@@ -1,8 +1,26 @@
 ---
-layout: archive
+layout: default
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
+{%- assign cats = site.categories | sort -%}
+<div class="page wrap-narrow">
+  <h1 class="page__title">카테고리</h1>
+  <p class="page__lead">주제별로 모아 봤어요.</p>
 
-{{ content }}
+  <ul class="chips jump" aria-label="카테고리 바로가기">
+    {%- for c in cats -%}{%- unless c[0] == 'coding' -%}
+      <li><a class="chip" href="#{{ c[0] | slugify }}">{{ c[0] }} <span>{{ c[1].size }}</span></a></li>
+    {%- endunless -%}{%- endfor -%}
+    {%- for c in cats -%}{%- if c[0] == 'coding' -%}
+      <li><a class="chip" href="#{{ c[0] | slugify }}">전체 <span>{{ c[1].size }}</span></a></li>
+    {%- endif -%}{%- endfor -%}
+  </ul>
 
-{% include posts-taxonomy.html locale=locale taxonomies=site.categories %}
+  {%- for c in cats -%}{%- unless c[0] == 'coding' -%}
+    {%- assign cname = c[0] -%}{%- assign cposts = c[1] -%}
+    {% include ln/group.html id=cname label=cname posts=cposts %}
+  {%- endunless -%}{%- endfor -%}
+  {%- for c in cats -%}{%- if c[0] == 'coding' -%}
+    {%- assign cname = c[0] -%}{%- assign cposts = c[1] -%}
+    {% include ln/group.html id=cname label='전체' posts=cposts %}
+  {%- endif -%}{%- endfor -%}
+</div>

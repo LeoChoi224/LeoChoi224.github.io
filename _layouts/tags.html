@@ -1,8 +1,20 @@
 ---
-layout: archive
+layout: default
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
+{%- assign tags = site.tags | sort -%}
+<div class="page wrap-narrow">
+  <h1 class="page__title">태그</h1>
+  <p class="page__lead">키워드로 찾아보세요.</p>
 
-{{ content }}
+  <ul class="chips jump" aria-label="태그 바로가기">
+    {%- for t in tags -%}
+      <li><a class="chip" href="#{{ t[0] | slugify }}">#{{ t[0] }} <span>{{ t[1].size }}</span></a></li>
+    {%- endfor -%}
+  </ul>
 
-{% include posts-taxonomy.html locale=locale taxonomies=site.tags %}
+  {%- for t in tags -%}
+    {%- assign tname = t[0] -%}{%- assign tposts = t[1] -%}
+    {% capture label %}#{{ tname }}{% endcapture %}
+    {% include ln/group.html id=tname label=label posts=tposts %}
+  {%- endfor -%}
+</div>

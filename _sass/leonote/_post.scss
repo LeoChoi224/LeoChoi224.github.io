@@ -1,0 +1,256 @@
+@charset "utf-8";
+/* ==========================================================================
+   글 페이지: 머리, 본문, 목차, 코드, 이전·다음 글, 댓글
+   ========================================================================== */
+
+.post { padding: 48px 0 88px; }
+
+.post__head {
+  margin-bottom: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.post__crumbs {
+  display: flex;
+  gap: 8px;
+  color: var(--faint);
+  font-size: 14px;
+  a { color: var(--sub); }
+  a:hover { color: var(--ink); }
+}
+.post__title {
+  margin: 14px 0;
+  font-size: clamp(28px, 4.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.03em;
+}
+.post__meta {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  color: var(--sub);
+  font-size: 14.5px;
+}
+.post__tags { margin-top: 18px; }
+
+/* 본문 가운데 고정, 넓은 화면에서는 오른쪽에 목차 */
+.post__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, var(--w-narrow)) minmax(0, 1fr);
+  padding-inline: 20px;
+}
+.prose { grid-column: 2; min-width: 0; }
+.toc {
+  grid-column: 3;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--nav-h) + 36px);
+  width: 216px;
+  max-height: calc(100vh - var(--nav-h) - 72px);
+  margin-left: 40px;
+  overflow-y: auto;
+}
+.toc__title { margin: 0 0 10px; color: var(--faint); font-size: 13px; font-weight: 700; }
+#toc a {
+  display: block;
+  padding: 4px 0 4px 12px;
+  border-left: 2px solid var(--line);
+  color: var(--faint);
+  font-size: 13.5px;
+  line-height: 1.5;
+  transition: color .15s, border-color .15s;
+  &:hover { color: var(--sub); }
+  &.lvl-3 { padding-left: 24px; font-size: 13px; }
+  &.is-active { color: var(--ink); border-left-color: var(--ink); font-weight: 600; }
+}
+
+@media (max-width: 1279px) {
+  .toc { display: none; }
+}
+@media (max-width: 640px) {
+  .post { padding-top: 32px; }
+  .post__body { padding-inline: 16px; }
+}
+
+/* ---------- 본문 글꼴 ---------- */
+.prose {
+  font-size: 17px;
+  line-height: 1.85;
+
+  > hr:first-child { display: none; }
+  > hr:first-child + *, > :first-child { margin-top: 0; }
+
+  p { margin: 0 0 1.25em; }
+  h2 {
+    margin: 2.4em 0 .8em;
+    padding-bottom: .4em;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.55em;
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -.025em;
+  }
+  h3 { margin: 2em 0 .6em; font-size: 1.25em; font-weight: 750; line-height: 1.45; letter-spacing: -.015em; }
+  h4 { margin: 1.6em 0 .5em; font-size: 1.06em; font-weight: 700; }
+  a {
+    text-decoration: underline;
+    text-decoration-color: var(--faint);
+    text-underline-offset: 3px;
+    &:hover { text-decoration-color: var(--ink); }
+  }
+  strong { font-weight: 700; }
+
+  ul, ol { margin: 0 0 1.25em; padding-left: 1.4em; }
+  li { margin: .3em 0; }
+  li > p { margin: .4em 0; }
+  li::marker { color: var(--faint); }
+
+  blockquote {
+    margin: 1.6em 0;
+    padding: .9em 1.2em;
+    border-left: 3px solid var(--ink);
+    border-radius: 0 12px 12px 0;
+    background: var(--surface);
+    color: var(--sub);
+    p:last-child { margin-bottom: 0; }
+  }
+  hr { margin: 2.6em 0; border: 0; border-top: 1px solid var(--line); }
+  img { display: block; margin: 1.6em auto; border-radius: 12px; }
+
+  /* {% include video %} 로 넣은 유튜브 영상 */
+  .responsive-video-container {
+    position: relative;
+    margin: 1.6em 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    iframe, object, embed { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  }
+
+  .table-wrap {
+    margin: 1.6em 0;
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: .92em; line-height: 1.6; }
+  > table { margin: 1.6em 0; }
+  th, td { padding: 10px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { background: var(--surface); font-weight: 700; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* 인라인 코드 */
+  :not(pre) > code {
+    padding: .16em .42em;
+    border-radius: 6px;
+    background: var(--surface-2);
+    font-family: var(--mono);
+    font-size: .84em;
+    font-variant-ligatures: none;
+  }
+
+  /* 기존 글에서 쓰던 Minimal Mistakes 클래스 */
+  [class^="notice"], [class*=" notice"] {
+    margin: 1.6em 0;
+    padding: 1em 1.2em;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    font-size: .95em;
+    p:last-child { margin-bottom: 0; }
+  }
+  .btn {
+    display: inline-block;
+    padding: .5em 1.1em;
+    border-radius: 10px;
+    background: var(--ink);
+    color: var(--bg);
+    font-size: .92em;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { opacity: .85; }
+  }
+}
+
+/* ---------- 코드 블록 ---------- */
+.prose div.highlighter-rouge,
+.prose figure.highlight {
+  position: relative;
+  margin: 1.6em 0;
+  overflow: hidden;
+  border: 1px solid var(--code-line);
+  border-radius: 14px;
+  background: var(--code-bg);
+}
+.prose .highlight { margin: 0; }
+.prose pre {
+  margin: 0;
+  padding: 18px 20px;
+  overflow-x: auto;
+  color: var(--code-ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.7;
+  font-variant-ligatures: none;
+  tab-size: 4;
+  code { padding: 0; background: none; font: inherit; color: inherit; }
+}
+.code-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px 7px 18px;
+  border-bottom: 1px solid var(--code-line);
+  color: var(--code-sub);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.code-copy {
+  padding: 2px 10px;
+  border: 1px solid #333;
+  border-radius: 7px;
+  background: transparent;
+  color: #bdbdbd;
+  font: inherit;
+  cursor: pointer;
+  &:hover { border-color: #555; color: #fff; }
+}
+
+/* ---------- 이전·다음 글, 댓글 ---------- */
+.post__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 64px;
+}
+.post__nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  transition: border-color .15s, background-color .15s;
+  &:hover { border-color: var(--faint); background: var(--surface); }
+  span { color: var(--faint); font-size: 13px; }
+  b {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &.is-next { grid-column: 2; text-align: right; }
+}
+.comments {
+  margin-top: 56px;
+  h2 { margin: 0 0 16px; font-size: 18px; font-weight: 800; }
+}
+
+@media (max-width: 640px) {
+  .post__nav { grid-template-columns: 1fr; }
+  .post__nav-item.is-next { grid-column: auto; }
+}

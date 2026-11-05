@@ -5,5 +5,9 @@ search: false
 
 @charset "utf-8";
 
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
-@import "minimal-mistakes"; // main partials
+// 레오노트 자체 테마 (Minimal Mistakes 스타일은 더 이상 불러오지 않는다)
+@import "leonote/tokens";
+@import "leonote/base";
+@import "leonote/layout";
+@import "leonote/post";
+@import "leonote/syntax";

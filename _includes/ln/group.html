@@ -1,0 +1,13 @@
+<section class="group" id="{{ include.id | slugify }}">
+  <h2 class="group__title">{{ include.label }} <span>{{ include.posts.size }}</span></h2>
+  <ul class="group__list">
+    {%- for p in include.posts -%}
+    <li>
+      <a href="{{ p.url | relative_url }}">
+        <span class="group__name">{{ p.title }}</span>
+        <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y.%m.%d' }}</time>
+      </a>
+    </li>
+    {%- endfor -%}
+  </ul>
+</section>

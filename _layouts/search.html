@@ -1,43 +1,15 @@
 ---
 layout: default
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
-
-{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html locale=locale %}
-{% endif %}
-
-{% if page.url != "/" and site.breadcrumbs %}
-  {% unless paginator %}
-    {% include breadcrumbs.html locale=locale %}
-  {% endunless %}
-{% endif %}
-
-<div id="main" role="main">
-  {% include sidebar.html locale=locale %}
-
-  <div class="archive">
-    {% unless page.header.overlay_color or page.header.overlay_image %}
-      <h1 id="page-title" class="page__title"{% if page.locale %} lang="{{ page.locale }}"{% endif %}>{{ page.title }}</h1>
-    {% endunless %}
-
-    {{ content }}
-
-    {%- assign search_provider = site.search_provider | default: "lunr" -%}
-    {%- case search_provider -%}
-      {%- when "lunr" -%}
-        <input type="text" id="search" class="search-input" placeholder="{{ site.data.ui-text[locale].search_placeholder_text | default: 'Enter your search term...' }}" />
-        <div id="results" class="results"></div>
-      {%- when "google" -%}
-        <form onsubmit="return googleCustomSearchExecute();" id="cse-search-box-form-id">
-        <input type="text" id="cse-search-input-box-id" class="search-input" placeholder="{{ site.data.ui-text[locale].search_placeholder_text | default: 'Enter your search term...' }}" />
-        </form>
-        <div id="results" class="results">
-          <gcse:searchresults-only></gcse:searchresults-only>
-        </div>
-      {%- when "algolia" -%}
-        <div class="search-searchbar"></div>
-        <div class="search-hits"></div>
-    {%- endcase -%}
-  </div>
+<div class="page wrap-narrow">
+  <h1 class="page__title">검색</h1>
+  <p class="page__lead">제목, 태그, 본문에서 찾아요.</p>
+  <label class="search-box">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="sr-only">검색어</span>
+    <input type="search" id="searchInput" placeholder="예: React, JWT, RAG" autocomplete="off" autofocus>
+  </label>
+  <p class="search-status" id="searchStatus" aria-live="polite"></p>
+  <ul class="group__list search-results" id="searchResults"></ul>
 </div>
+<script>window.LN_SEARCH_INDEX = "{{ '/search.json' | relative_url }}";</script>
