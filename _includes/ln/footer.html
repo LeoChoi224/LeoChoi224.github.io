@@ -5,9 +5,9 @@
       <p class="foot__desc">{{ site.subtitle }}</p>
     </div>
     <ul class="foot__links">
-      {%- for link in site.author.links -%}
+      {%- for link in site.author.links -%}{%- if link.url and link.url != "" -%}
         <li><a href="{{ link.url }}"{% unless link.url contains 'mailto:' %} target="_blank" rel="noopener"{% endunless %}>{{ link.label }}</a></li>
-      {%- endfor -%}
+      {%- endif -%}{%- endfor -%}
       <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
     </ul>
   </div>

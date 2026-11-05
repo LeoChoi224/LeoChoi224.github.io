@@ -1,0 +1,33 @@
+{%- comment -%} 프로필: 홈 첫 페이지는 소개 문구 옆, 2페이지부터는 옆 정보 맨 위에 나온다 {%- endcomment -%}
+<div class="profile">
+  <img src="{{ site.author.avatar | relative_url }}" alt="" width="84" height="84">
+  <div>
+    <p class="profile__name">최홍묵 <span>Leo</span></p>
+    <p class="profile__bio">AI 개발자를 목표로 공부하고 있어요.</p>
+  </div>
+</div>
+{%- comment -%}
+  아이콘 순서와 주소는 _config.yml 의 author.links. url 이 비어 있으면 아이콘만 보인다
+  포트폴리오(icon: portfolio)는 아이콘 대신 아이콘 줄 아래 글자 버튼으로 나온다
+{%- endcomment -%}
+{%- assign portfolio = site.author.links | where: "icon", "portfolio" | first -%}
+<div class="profile__actions">
+  <ul class="profile__links">
+    {%- for link in site.author.links -%}{%- unless link.icon == "portfolio" -%}
+      <li>
+        {%- if link.url and link.url != "" -%}
+          <a href="{{ link.url }}" aria-label="{{ link.label }}" title="{{ link.label }}"{% unless link.url contains 'mailto:' %} target="_blank" rel="noopener"{% endunless %}>{% include ln/icon.html name=link.icon %}</a>
+        {%- else -%}
+          <span class="is-empty" role="img" aria-label="{{ link.label }} (준비 중)" title="{{ link.label }} (준비 중)">{% include ln/icon.html name=link.icon %}</span>
+        {%- endif -%}
+      </li>
+    {%- endunless -%}{%- endfor -%}
+  </ul>
+  {%- if portfolio -%}
+    {%- if portfolio.url and portfolio.url != "" -%}
+      <a class="profile__cta" href="{{ portfolio.url }}" target="_blank" rel="noopener">포트폴리오 보기 <span aria-hidden="true">→</span></a>
+    {%- else -%}
+      <span class="profile__cta is-empty">포트폴리오 준비 중</span>
+    {%- endif -%}
+  {%- endif -%}
+</div>

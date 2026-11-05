@@ -160,8 +160,19 @@
 @keyframes crt-blink { 50% { opacity: 0; } }
 @keyframes crt-flicker { 0%, 100% { opacity: 1; } 47% { opacity: .9; } 49% { opacity: 1; } 83% { opacity: .94; } }
 
-.hero__copy {
+/* 소개 문구 + 프로필을 한 줄에. 오른쪽 칸은 아래 .home 의 옆 정보 칸과 폭을 맞춘다 */
+.hero__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 64px;
+  align-items: center;
   margin-top: 32px;
+}
+@media (max-width: 960px) {
+  .hero__row { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+}
+
+.hero__copy {
   h1 {
     margin: 0;
     font-size: clamp(26px, 3.4vw, 36px);
@@ -180,12 +191,13 @@
 /* ---------- 홈: 목록 + 옆 정보 ---------- */
 .home {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 272px;
+  grid-template-columns: minmax(0, 1fr) 300px;
   gap: 64px;
   align-items: start;
   padding: 48px 0 88px;
 }
 .home__side { position: sticky; top: calc(var(--nav-h) + 28px); }
+.home__side > .side-title:first-child { margin-top: 0; }   /* 첫 페이지는 프로필이 위로 올라가서 카테고리가 맨 위 */
 
 @media (max-width: 960px) {
   .home { grid-template-columns: minmax(0, 1fr); gap: 48px; padding-top: 36px; }
@@ -277,33 +289,71 @@ a.chip:hover { color: var(--ink); border-color: var(--line); background: var(--b
 .profile {
   display: flex;
   align-items: center;
-  gap: 14px;
-  img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+  gap: 18px;
+  img { flex: none; width: 84px; height: 84px; border-radius: 50%; object-fit: cover; }
 }
 .profile__name {
   margin: 0;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 800;
   span { margin-left: 2px; color: var(--sub); font-weight: 500; }
 }
-.profile__bio { margin: 2px 0 0; color: var(--sub); font-size: 14px; line-height: 1.5; }
+.profile__bio {
+  margin: 4px 0 0;
+  color: var(--sub);
+  font-size: 15px;
+  line-height: 1.5;
+  word-break: keep-all;
+  text-wrap: balance;   /* 두 줄이 될 때 한 단어만 아래로 떨어지지 않게 */
+}
+/* 링크 아이콘 줄 + 포트폴리오 버튼. 묶음 폭이 아이콘 줄 폭에 맞춰져서 버튼 양끝이 아이콘 줄과 맞는다 */
+.profile__actions {
+  display: grid;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  margin-top: 18px;
+}
 .profile__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin: 16px 0 0;
+  gap: 8px;
+  margin: 0;
   padding: 0;
   list-style: none;
-  a {
-    display: block;
-    padding: 3px 10px;
+  a, .is-empty {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
     border: 1px solid var(--line);
-    border-radius: 99px;
+    border-radius: 50%;
     color: var(--sub);
-    font-size: 13px;
-    &:hover { color: var(--ink); border-color: var(--faint); }
   }
+  a {
+    transition: color .15s, border-color .15s, background-color .15s;
+    &:hover { color: var(--ink); border-color: var(--faint); background: var(--surface); }
+  }
+  .is-empty { cursor: default; }   /* 주소가 아직 없는 아이콘 */
+  svg { display: block; }
 }
+.profile__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+  transition: border-color .15s, background-color .15s;
+  span { transition: transform .15s; }
+}
+a.profile__cta:hover { border-color: var(--faint); background: var(--surface); }
+a.profile__cta:hover span { transform: translateX(3px); }
+.profile__cta.is-empty { border-style: dashed; color: var(--faint); font-weight: 500; cursor: default; }   /* 주소를 넣기 전 */
 .side-title {
   margin: 32px 0 8px;
   color: var(--faint);

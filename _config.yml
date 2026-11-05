@@ -115,32 +115,32 @@ analytics:
 # Site Author
 author:
   name             : "LeoNote"
-  avatar           : "/assets/images/IMG_1532.jpeg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/profile.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "레오노트의 블로그입니다."
   location         : "South Korea"
   email            : # "leochoi224@gmail.com"
   # fediverse      : "@you@instance.social"  # used for fediverse:creator meta tag
+  # 프로필 아이콘 = 이 목록 순서대로 나온다. url 을 비워 두면 아이콘만 보이고 링크는 안 걸린다
+  # icon 값: email, github, facebook, instagram, tistory (모양은 _includes/ln/icon.html)
+  # icon: portfolio 는 아이콘 대신 아이콘 줄 아래 '포트폴리오' 글자 버튼으로 나온다
   links:
     - label: "Email"
-      icon: "fas fa-fw fa-square-envelope"
+      icon: "email"
       url: "mailto:leochoi224@gmail.com"
-    # - label: "Website"
-    #   icon: "fas fa-fw fa-link"
-    #   url: "https://LeoChoi224.github.io"
-    # - label: "Twitter"
-    #   icon: "fab fa-fw fa-square-x-twitter"
-    #   # url: "https://twitter.com/"
-    # - label: "Facebook"
-    #   icon: "fab fa-fw fa-square-facebook"
-    #   # url: "https://facebook.com/"
     - label: "GitHub"
-      icon: "fab fa-fw fa-github"
+      icon: "github"
       url: "https://github.com/LeoChoi224"
+    - label: "Portfolio"
+      icon: "portfolio"
+      url: ""   # 주소를 넣으면 '포트폴리오 준비 중' 버튼이 '포트폴리오 보기 →'로 바뀐다
+    - label: "Facebook"
+      icon: "facebook"
+      url: ""   # 페이스북 주소를 여기에
     - label: "Instagram"
-      icon: "fab fa-fw fa-instagram"
+      icon: "instagram"
       url: "https://www.instagram.com/hm00k_"
     - label: "Tistory"
-      icon: "fas fa-fw fa-pen"
+      icon: "tistory"
       url: "https://leochoi224.tistory.com/"
 
 # Site Footer
