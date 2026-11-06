@@ -135,7 +135,7 @@ author:
       url: ""   # 주소를 넣으면 '포트폴리오 준비 중' 버튼이 '포트폴리오 보기 →'로 바뀐다
     - label: "Facebook"
       icon: "facebook"
-      url: ""   # 페이스북 주소를 여기에
+      url: "https://www.facebook.com/profile.php?id=100006671653630"
     - label: "Instagram"
       icon: "instagram"
       url: "https://www.instagram.com/hm00k_"
