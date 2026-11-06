@@ -29,6 +29,7 @@ Python과 Database에서는 결과가 검은 터미널에 글자로 나왔는데
 크롬에서 `Ctrl+U`(맥은 `Cmd+Option+U`)를 누르면 서버가 실제로 보낸 원본 HTML을 볼 수 있다.
 
 ## HTML, CSS, JavaScript의 역할
+
 | | 담당 | 비유 |
 |---|---|---|
 | HTML | 구조·내용 | 건물 뼈대와 벽 |

@@ -195,6 +195,7 @@ sorted(data, key=lambda x: sum(x['score']) / len(x['score']))    # 평균순
 참고로 `sorted(iterable, /, *, key=None, reverse=False)`에서 `*` 뒤는 keyword-only라서 `key=`를 꼭 써야 한다. `sorted(data, lambda x: x[1])`은 에러다.
 
 ## reduce
+
 | 함수 | 개수 변화 | 하는 일 |
 |---|---|---|
 | map | N → N | 전부 변환 |

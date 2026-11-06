@@ -73,6 +73,7 @@ inline은 문장 속에 섞여 흐르는 걸 전제로 만들어져서, 문장 �
 `display: none`은 자리까지 사라지고, `visibility: hidden`은 자리는 남기고 안 보이게만 한다는 차이도 있었다.
 
 ## id, class, name
+
 | | 개수 | 주로 쓰는 곳 | CSS |
 |---|---|---|---|
 | id | 페이지에 하나 | CSS, JavaScript | `#` |
